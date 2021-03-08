@@ -3,7 +3,7 @@ const app = new Vue({
   data: {
     url: '',
     slug: '',
-    error: '',
+    error: '', 
     formVisible: true,
     created: null,
   },

@@ -10,6 +10,24 @@
   <header>
     <img class="logo" style="height: 500PX;" src="https://wallpapercave.com/wp/wp6412235.png">
   </header>
+
+  <script>
+  function copyLink() {
+    let copyText = document.getElementById("copyText") 
+
+    var selection = window.getSelection();
+
+    var range = document.createRange();
+
+    range.selectNodeContents(copyText);
+
+    selection.removeAllRanges();
+
+    selection.addRange(range);
+
+    document.execCommand('copy'); 
+  }
+  </script>
   <main id="app">
     <form class="form" v-if="formVisible" @submit.prevent="createUrl()">
       <div v-if="error" class="error">
@@ -20,8 +38,13 @@
       <button type="submit" class="create">create</button>
     </form>
     <div v-if="created">
-      <p class="created">Your short url is: <a :href="created">{{created}}</a></p>
+      <p class="created">Your short url is: <a id="myInput" :href="created">{{created}}</a></p>
+      <span id="copyText">{{created}}</span>
+      <button onclick="copyLink()">Copy link</button>
     </div>
+    
+
+
   </main>
   <script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
   <script src="app.js"></script>
