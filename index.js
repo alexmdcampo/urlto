@@ -11,6 +11,7 @@ const { nanoid } = require('nanoid');
 require('dotenv').config();
 
 const db = monk(process.env.MONGODB_URI);
+const link = process.env.URL;
 const urls = db.get('urls');
 urls.createIndex({ slug: 1 }, { unique: true });
 
