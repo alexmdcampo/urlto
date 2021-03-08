@@ -1,0 +1,11 @@
+{
+    "ENTER_URL": "ENTER URL",
+    "ENTER_STRING": "ENTER STRING",
+    "WELCOME_MSG": "Hi! Welcome!",
+    "CONTACT_TEXT": "More bla",
+    "hello": "Hello.",
+    "appName": "Your Cool App",
+    "error": "An error has occurred.",
+    "Hello": "Hello {{name}}"
+}
+

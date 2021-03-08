@@ -1,12 +1,12 @@
-const path          = require('path');
-const express       = require('express');
-const morgan        = require('morgan');
-const helmet        = require('helmet');
-const yup           = require('yup');
-const monk          = require('monk');
-const rateLimit     = require('express-rate-limit');
-const slowDown      = require('express-slow-down');
-const { nanoid }    = require('nanoid');
+const path = require('path');
+const express = require('express');
+const morgan = require('morgan');
+const helmet = require('helmet');
+const yup = require('yup');
+const monk = require('monk');
+const rateLimit = require('express-rate-limit');
+const slowDown = require('express-slow-down');
+const { nanoid } = require('nanoid');
 const newrelic      = require('newrelic');
 
 require('dotenv').config();
@@ -23,10 +23,11 @@ app.use(morgan('common'));
 app.use(express.json());
 app.use(express.static('./public'));
 
+
 const notFoundPath = path.join(__dirname, 'public/404.html');
 
 app.get('/:id', async (req, res, next) => {
-  
+    
   newrelic.setControllerName('Home');
   
   const { id: slug } = req.params;
@@ -61,7 +62,7 @@ app.post('/url', slowDown({
       slug,
       url,
     });
-    if (url.includes('cdg.sh')) {
+    if (url.includes('urlto.info')) {
       throw new Error('Stop it. 🛑');
     }
     if (!slug) {

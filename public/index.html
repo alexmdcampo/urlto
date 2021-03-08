@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Encurta</title>
+  <title>URL To</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header>
-    <img class="logo" style="height: 500PX;" src="https://wallpapercave.com/wp/wp6412235.png">
+    <img class="logo" style="height: 200PX;" src="https://wallpapercave.com/wp/wp6412235.png">
   </header>
 
   <script>
@@ -21,7 +21,7 @@
 
     range.selectNodeContents(copyText);
 
-    selection.removeAllRanges();https://encurtamos.herokuapp.com/f2f23f23f
+    selection.removeAllRanges();
 
     selection.addRange(range);
 
@@ -29,18 +29,23 @@
   }
   </script>
   <main id="app">
+    <p class="created">link shortener for customize links..</a></p>
+
     <form class="form" v-if="formVisible" @submit.prevent="createUrl()">
+      
       <div v-if="error" class="error">
         {{error}}
       </div>
-      <input class="input" type="text" v-model="url" name="url" id="url" placeholder="enter a url">
-      <input class="input" type="text" v-model="slug" name="slug" id="slug" placeholder="enter a string">
+      <input class="input" type="text" v-model="url" name="url" id="url" placeholder="Enter a url">
+      <input class="input" type="text" v-model="slug" name="slug" id="slug" placeholder="Enter a string">
       <button type="submit" class="create">create</button>
     </form>
     <div v-if="created">
-      <p class="created">Your short url is: <a id="myInput" :href="created">{{created}}</a></p>
-      <span id="copyText">{{created}}</span>
+      <p class="created">Your short url is: <a id="copyText" :href="created">{{created}}</a></p>
       <button onclick="copyLink()">Copy link</button>
+      <br>
+      <img :src= "qrcode" />   
+      
     </div>
     
 

@@ -58,12 +58,12 @@ header {
   text-align: center;
   font-size: 1.25rem;
   transition: border-bottom-color 0.3s ease-in-out;
-  caret-color: #56BC58;
+  caret-color: #611db9;
 }
 
 .input:focus {
   outline: none;
-  border-bottom-color: #56BC58;
+  border-bottom-color: #611db9;
 }
 
 .input::placeholder {
@@ -75,9 +75,9 @@ header {
   cursor: pointer;
   font-family: inherit;
   font-size: 1.15rem;
-  color: #262626;
+  color: #ffffff;
   border: none;
-  background-color: #56BC58;
+  background-color: #611db9;
   padding: 0.75em 1.25rem;
   box-shadow: 3px 3px 0 0 #ffffff;
   transition: box-shadow 0.2s ease-in-out;
