@@ -12,7 +12,6 @@ const newrelic      = require('newrelic');
 require('dotenv').config();
 
 const db = monk(process.env.MONGODB_URI);
-const link = process.env.URL;
 const urls = db.get('urls');
 urls.createIndex({ slug: 1 }, { unique: true });
 
@@ -27,11 +26,14 @@ app.use(express.static('./public'));
 const notFoundPath = path.join(__dirname, 'public/404.html');
 
 app.get('/:id', async (req, res, next) => {
-  newrelic.setControllerName('Home')
+  
+  newrelic.setControllerName('Home');
+  
   const { id: slug } = req.params;
   try {
     const url = await urls.findOne({ slug });
     if (url) {
+      newrelic.setControllerName( req.params.id );
       return res.redirect(url.url);
     }
     return res.status(404).sendFile(notFoundPath);
