@@ -24,7 +24,7 @@ const app = new Vue({
       if (response.ok) {
         const result = await response.json();
         this.formVisible = false;
-        this.created = `https://encurtamos.herokuapp.com/${result.slug}`;
+        this.created = `https://www.urlto.info/${result.slug}`;
         this.qrcode = `https://api.qrserver.com/v1/create-qr-code/?format=png&data=`+this.created;
       } else if (response.status === 429) {
         this.error = 'You are sending too many requests. Try again in 30 seconds.';
