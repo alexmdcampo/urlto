@@ -38,6 +38,10 @@ app.post('/API', slowDown({
   var { shortcut } = req.body;
   var slug = shortcut;
   var { url } = req.body;
+  var { API_KEY } = req.body;
+
+
+
   try {
     await schema.validate({
       slug,
@@ -45,6 +49,11 @@ app.post('/API', slowDown({
     });
     if (url.includes('urlto.info')) {
       throw new Error('Stop it. 🛑');
+    }
+    if(API_KEY === "6047a0218a9f8e001545678"){
+      console.log(API_KEY);
+    }else{
+      throw new Error('Ops, you need an API KEY. 🔑');
     }
     if (!slug) {
       slug = nanoid(5);
