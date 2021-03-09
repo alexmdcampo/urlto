@@ -26,6 +26,46 @@ app.use(express.static('./public'));
 
 const notFoundPath = path.join(__dirname, 'public/404.html');
 
+app.post('/API', slowDown({
+  windowMs: 30 * 1000,
+  delayAfter: 1,
+  delayMs: 500,
+}), rateLimit({
+  windowMs: 30 * 1000,
+  max: 2,
+}), async (req, res, next) => {
+  //let { slug, url } = req.body;
+  var { shortcut } = req.body;
+  var slug = shortcut;
+  var { url } = req.body;
+  try {
+    await schema.validate({
+      slug,
+      url,
+    });
+    if (url.includes('urlto.info')) {
+      throw new Error('Stop it. 🛑');
+    }
+    if (!slug) {
+      slug = nanoid(5);
+    } else {
+      const existing = await urls.findOne({ slug });
+      if (existing) {
+        throw new Error('shortcut in use. 🍔');
+      }
+    }
+    slug = slug.toLowerCase();
+    const newUrl = {
+      url,
+      slug,
+    };
+    const created = await urls.insert(newUrl);
+    res.json(created);
+  } catch (error) {
+    next(error);
+  }
+});
+
 app.get('/:id', async (req, res, next) => {
     
   newrelic.setControllerName('Home');
