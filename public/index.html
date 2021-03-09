@@ -3,12 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <title>URL To</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="shortcut icon" href="favicon.ico" />
 </head>
 <body>
   <header>
-    <img class="logo" style="height: 200PX;" src="https://wallpapercave.com/wp/wp6412235.png">
+    <!-- <img class="logo" style="height: 200PX;" src="https://wallpapercave.com/wp/wp6412235.png"> -->
+    <img class="logo" style="height: 200PX;" src="logo_urltov2.png">
   </header>
 
   <script>
@@ -29,14 +32,14 @@
   }
   </script>
   <main id="app">
-    <p class="created">link shortener for customize links..</a></p>
+    <h1 class="txt">URLs shortener for Lazy and Smart People ☂️</h1>
 
     <form class="form" v-if="formVisible" @submit.prevent="createUrl()">
       
       <div v-if="error" class="error">
         {{error}}
       </div>
-      <input class="input" type="text" v-model="url" name="url" id="url" placeholder="Enter a url">
+      <input class="input" type="text" v-model="url" name="url" id="url" placeholder="Enter a URL">
       <input class="input" type="text" v-model="slug" name="slug" id="slug" placeholder="Enter a string">
       <button type="submit" class="create">create</button>
     </form>

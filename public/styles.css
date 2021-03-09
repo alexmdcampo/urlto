@@ -18,6 +18,13 @@ body {
   background-color: #262626;
 }
 
+.txt {
+  margin: 1rem 0;
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: normal;
+}
+
 header {
   display: flex;
   justify-content: center;
