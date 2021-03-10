@@ -1,13 +1,15 @@
-const path = require('path');
-const express = require('express');
-const morgan = require('morgan');
-const helmet = require('helmet');
-const yup = require('yup');
-const monk = require('monk');
-const rateLimit = require('express-rate-limit');
-const slowDown = require('express-slow-down');
-const { nanoid } = require('nanoid');
+const path          = require('path');
+const express       = require('express');
+const morgan        = require('morgan');
+const helmet        = require('helmet');
+const yup           = require('yup');
+const monk          = require('monk');
+const rateLimit     = require('express-rate-limit');
+const slowDown      = require('express-slow-down');
+const { nanoid }    = require('nanoid');
 const newrelic      = require('newrelic');
+// const { I18n }      = require('i18n');
+// // const expressLayouts = require('express-ejs-layouts')
 
 require('dotenv').config();
 
@@ -22,7 +24,6 @@ app.use(helmet());
 app.use(morgan('common'));
 app.use(express.json());
 app.use(express.static('./public'));
-
 
 const notFoundPath = path.join(__dirname, 'public/404.html');
 
@@ -40,7 +41,7 @@ app.post('/API', slowDown({
   var { url } = req.body;
   var { API_KEY } = req.body;
 
-
+  newrelic.setControllerName('API');
 
   try {
     await schema.validate({
