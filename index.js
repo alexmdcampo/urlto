@@ -15,7 +15,10 @@ require('dotenv').config();
 
 const db = monk(process.env.MONGODB_URI);
 const urls = db.get('urls');
+const clique = db.get('clique');
+
 urls.createIndex({ slug: 1 }, { unique: true });
+clique.createIndex({ slug: 1 }, { unique: false });
 
 const app = express();
 app.enable('trust proxy');
@@ -26,6 +29,23 @@ app.use(express.json());
 app.use(express.static('./public'));
 
 const notFoundPath = path.join(__dirname, 'public/404.html');
+
+//tras dados do banco para grafico
+app.get('/data/:id', async(req, res) => {
+  try {
+    const document = await clique.find({
+      slug: req.params.id,
+    })
+
+    //Send the found document in the response
+    res.send(document);
+    //console.log(document);
+  } catch (err) {
+    //Incase of an errror send a 404 NOT FOUND
+    res.status(404).send({ error: "Document Not Found" })
+  }
+
+});
 
 app.post('/API', slowDown({
   windowMs: 30 * 1000,
@@ -84,8 +104,24 @@ app.get('/:id', async (req, res, next) => {
   try {
     const url = await urls.findOne({ slug });
     if (url) {
-      newrelic.setControllerName( req.params.id );
+      newrelic.setControllerName(req.params.id);
+
+      //grava acesso a url
+      var datetime = new Date();
+      var c = 1
+      const clique_novo = {
+        url,
+        slug,
+        datetime,
+        c
+      };
+
+      console.log(clique_novo);
+      clique.insert(clique_novo);
+           
+      //vai para pagina com retorno do banco
       return res.redirect(url.url);
+
     }
     return res.status(404).sendFile(notFoundPath);
   } catch (error) {
@@ -134,6 +170,7 @@ app.post('/url', slowDown({
     next(error);
   }
 });
+
 
 app.use((req, res, next) => {
   res.status(404).sendFile(notFoundPath);

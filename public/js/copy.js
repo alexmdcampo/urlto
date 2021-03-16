@@ -13,3 +13,4 @@ function copyLink() {
 
   document.execCommand('copy'); 
 }
+
